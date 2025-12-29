@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 고등학교 포트폴리오</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 2px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1em;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        /* 포트폴리오 목록 스타일 */
+        .portfolio-section {
+            margin-top: 40px;
+        }
+
+        .portfolio-section h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .portfolio-card .year {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .portfolio-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .portfolio-card .category {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+
+        .media-container {
+            margin: 15px 0;
+            max-width: 100%;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #ddd;
+        }
+
+        .media-container img,
+        .media-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .file-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px 5px 5px 0;
+            transition: background 0.3s;
+            font-size: 0.9em;
+            word-break: break-all;
+        }
+
+        .file-link:hover {
+            background: #764ba2;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-size: 1.1em;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .card-actions button {
+            margin: 0;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .file-list {
+            margin-top: 10px;
+        }
+
+        .file-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+        }
+
+        .file-item .file-name {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .file-item button {
+            padding: 4px 10px;
+            font-size: 0.8em;
+            margin: 0;
+        }
+
+        .export-section {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+
+        .export-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .stat-box .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 나의 고등학교 포트폴리오</h1>
+            <p>고등학교 3년간의 성장 기록</p>
+        </header>
+
+        <main>
+            <!-- 통계 -->
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number" id="totalCount">0</div>
+                    <div class="label">총 포트폴리오</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="yearCount">0</div>
+                    <div class="label">선택 연도</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="fileCount">0</div>
+                    <div class="label">첨부 파일</div>
+                </div>
+            </div>
+
+            <!-- 내보내기 섹션 -->
+            <div class="export-section">
+                <h3>📥 포트폴리오 관리</h3>
+                <button onclick="exportData()">📊 JSON으로 내보내기</button>
+                <button class="btn-secondary" onclick="importData()">📤 JSON에서 불러오기</button>
+                <button class="btn-secondary" onclick="printPortfolio()">🖨️ 인쇄하기</button>
+                <button class="btn-secondary" onclick="clearAllData()">🗑️ 모든 데이터 삭제</button>
+                <input type="file" id="importFile" accept=".json" style="display:none">
+            </div>
+
+            <!-- 입력 폼 -->
+            <div class="input-section">
+                <h2>📝 포트폴리오 추가</h2>
+                
+                <div class="form-group">
+                    <label for="projectTitle">프로젝트 제목 *</label>
+                    <input type="text" id="projectTitle" placeholder="예: 과학 탐구 프로젝트" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="year">학년 선택 *</label>
+                        <select id="year" required>
+                            <option value="">선택하세요</option>
+                            <option value="1학년">1학년</option>
+                            <option value="2학년">2학년</option>
+                            <option value="3학년">3학년</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">카테고리 *</label>
+                        <select id="category" required>
+                            <option value="">선택하세요</option>
+                            <option value="과학">과학</option>
+                            <option value="수학">수학</option>
+                            <option value="영어">영어</option>
+                            <option value="사회">사회</option>
+                            <option value="동아리">동아리</option>
+                            <option value="봉사">봉사</option>
+                            <option value="기술">기술</option>
+                            <option value="예술">예술</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">프로젝트 설명</label>
+                    <textarea id="description" placeholder="프로젝트에 대해 자세히 설명해주세요..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectLink">관련 링크 (선택)</label>
+                    <input type="url" id="projectLink" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="imageFile">이미지 파일 (PNG, JPG, GIF)</label>
+                    <input type="file" id="imageFile" accept="image/*" multiple>
+                    <div id="imageList" class="file-list"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="videoFile">영상 파일 (MP4, WebM)</label>
+                    <input type="file" id="videoFile" accept="video/*" multiple>
+                    <div id="videoList" class="file-list"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="documentFile">문서 파일 (PDF, DOC, DOCX, TXT)</label>
+                    <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt" multiple>
+                    <div id="documentList" class="file-list"></div>
+                </div>
+
+                <button onclick
